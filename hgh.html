@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <form action="/login" method="post">
+      <input type="email" name="email" placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <input type="submit" value="Login">
+    </form>
+    <p>Don't have an account? <a href="/signup">Sign up</a></p>
+  </div>
+  <script>
+    // This function validates the user input
+function validateUserInput() {
+  // Get the username and password from the form
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  // Check if the username and password are both entered
+  if (username === "" || password === "") {
+    // Display an error message
+    alert("Please enter your username and password.");
+    return false;
+  }
+
+  // The username and password are both entered, so return true
+  return true;
+}
+
+// This function sends the username and password to the server
+function sendLoginData() {
+  // Validate the user input
+  if (!validateUserInput()) {
+    // The user input is not valid, so return
+    return;
+  }
+
+  // Get the username and password from the form
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+
+  // Create a new XMLHttpRequest object
+  var xhr = new XMLHttpRequest();
+
+  // Set the request method to POST
+  xhr.open("POST", "/login", true);
+
+  // Set the request headers
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  // Send the username and password to the server
+  xhr.send("username=" + username + "&password=" + password);
+
+  // Check the response status code
+  if (xhr.status === 200) {
+    // The login was successful, so redirect the user to the home page
+    window.location.href = "/";
+  } else {
+    // The login was not successful, so display an error message
+    alert("Login failed. Please try again.");
+  }
+}
+
+// This function is called when the login button is clicked
+document.getElementById("loginButton").onclick = sendLoginData;
+
+
+
+
+  </script>
+</body>
+
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #fff;
+  margin: 0;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+</style>
+
+</html>
